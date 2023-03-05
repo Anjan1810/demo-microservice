@@ -8,6 +8,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class UserData {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "Id")
+    private Long id;
     @Id
     @Column(updatable = false, nullable = false)
     private String username;

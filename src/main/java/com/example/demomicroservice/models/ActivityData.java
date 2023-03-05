@@ -6,10 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class ActivityData {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "Id")
-    private Long id;
 
     private String userId;
     private String expenditureName;
@@ -53,14 +49,6 @@ public class ActivityData {
         this.expenditureAmount = expenditureAmount;
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDay() {
         return day;
