@@ -18,6 +18,7 @@ public class ImageData {
     private Long id;
 
     private String name;
+    private String userId;
 
     private String type;
 

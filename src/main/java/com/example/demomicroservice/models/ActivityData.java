@@ -6,6 +6,10 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class ActivityData {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "Id")
+    private Long id;
 
     private String userId;
     private String expenditureName;

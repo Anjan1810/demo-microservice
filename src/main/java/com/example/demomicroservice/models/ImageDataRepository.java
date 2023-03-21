@@ -14,9 +14,17 @@ public interface ImageDataRepository extends JpaRepository<ImageData, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE ImageData a SET a.filepath = :path WHERE a.name = 'profile'")
-    void insertProfilepic(@Param("path") String path);
+    @Query("UPDATE ImageData a SET a.filepath = :path WHERE a.name = 'profile' and a.userId = :userid")
+    void insertProfilepic(@Param("userid") String userid, @Param("path") String path);
 
-    @Query("Select Count(*) from ImageData a where a.name='profile'")
-    int checkifAlreadyPresent();
+    @Query("Select Count(*) from ImageData a where a.name='profile' and a.userId = :userid")
+    int checkifAlreadyPresent(@Param("userid") String userid);
+
+    @Query("Select a from ImageData a where  a.userId = :userid")
+    ImageData findbyUser(@Param("userid") String userid);
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM  ImageData a WHERE a.userId= :userId")
+    void deleteUserImages(@Param("userId") String userId);
+
 }

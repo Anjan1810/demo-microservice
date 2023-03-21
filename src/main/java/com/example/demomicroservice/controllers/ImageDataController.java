@@ -1,5 +1,11 @@
 package com.example.demomicroservice.controllers;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.example.demomicroservice.models.ImageUploadResponse;
 import com.example.demomicroservice.services.ImageDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,25 +23,18 @@ public class ImageDataController {
     @Autowired
     private ImageDataService imageDataService;
 
-    @PostMapping
-    public ResponseEntity<HttpStatus> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
-        ImageUploadResponse response = imageDataService.uploadProfileImage(file);
+    @PostMapping("/upload")
+    public ResponseEntity<HttpStatus> uploadImage(@RequestParam("userid") String userid, @RequestParam("image") MultipartFile file) throws IOException {
+        ImageUploadResponse response = imageDataService.uploadProfileImage(userid, file);
 
 //        return ResponseEntity.status(HttpStatus.OK)
 //                .body(response);
-          return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
-  /*  @GetMapping("/info/{name}")
-    public ResponseEntity<?>  getImageInfoByName(@PathVariable("name") String name){
-        ImageData image = imageDataService.getInfoByImageByName(name);
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(image);
-    }
-*/
     @GetMapping("/{name}")
-    public ResponseEntity<?>  getImageByName(@PathVariable("name") String name) throws IOException {
+    public ResponseEntity<?> getImageByName(@PathVariable("name") String name) throws IOException {
         byte[] image = imageDataService.getImage(name);
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -43,5 +42,15 @@ public class ImageDataController {
                 .body(image);
     }
 
+    @GetMapping(value = "/deleteImages/{userId}")
+    public ResponseEntity<HttpStatus> deleteUserImages(@PathVariable("userId") String userId) throws IOException {
 
+        try {
+            imageDataService.deleteUserImages(userId);
+            return ResponseEntity.ok(HttpStatus.OK);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

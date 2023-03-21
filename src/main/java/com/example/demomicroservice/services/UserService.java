@@ -14,7 +14,14 @@ public class UserService {
     public void saveUser(UserData user) {
         userRepository.save(user);
     }
-    public UserData getUser(String username) {
-        return userRepository.findById(username).get();
+    public UserData getUser(String username,String password) {
+       // return userRepository.findById(username).get();
+        return userRepository.findUser(username,password);
     }
+
+    public void deleteUser(String username) {
+        // return userRepository.findById(username).get();
+        userRepository.deleteUser(username);
+    }
+
 }
