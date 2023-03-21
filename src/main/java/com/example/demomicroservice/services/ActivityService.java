@@ -33,4 +33,10 @@ public class ActivityService {
         return activityRepo.findActivitiesByUser(username,day,month,year);
     }
 
+    public List<ActivityData> getAllExpenditureByMonth(String username, String month,String year) {
+       // ArrayList<String> list = new ArrayList<>();
+       // list.add(username);
+        return activityRepo.findActivitiesByMonth(username,month,year);
+    }
+
 }

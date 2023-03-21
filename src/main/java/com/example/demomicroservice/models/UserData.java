@@ -8,10 +8,15 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class UserData {
+
+
+
     @Id
-    @Column(updatable = false, nullable = false)
-    private String username;
+    @Column(name = "email_Id",unique = true)
     private String emailid;
+
+
+    private String username;
     private String password;
 
     public UserData() {
@@ -48,4 +53,6 @@ public class UserData {
     public void setEmailid(String emailid) {
         this.emailid = emailid;
     }
+
+
 }

@@ -12,6 +12,9 @@ public interface ActivityRepo extends JpaRepository<ActivityData, String> {
     @Query("select a from ActivityData  a where a.userId= ?1 and a.day= ?2 and a.month= ?3 and a.year= ?4")
     List<ActivityData> findActivitiesByUser(String userid,String day,String month, String year);
 
+    @Query("select a from ActivityData  a where a.userId= ?1  and a.month= ?2 and a.year= ?3")
+    List<ActivityData> findActivitiesByMonth(String userid,String month, String year);
+
     // @Query("delete a from ActivityData  a where a.userId= ?1 and a.expenditureName= ?2")
     // void deleteExpenditureForUser(String userid,String expenditurename);
     @Modifying

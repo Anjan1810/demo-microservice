@@ -32,6 +32,24 @@ public class ActivityResource {
 
     }
 
+    @GetMapping(value = "/expendituresbymonth", params = {"userid", "month", "year"})
+    public ResponseEntity<List<ActivityData>> getExpenditureByMonth(@RequestParam String userid, @RequestParam String month, @RequestParam String year) {
+        if (userid != null) {
+            List<ActivityData> activitydata = activityService.getAllExpenditureByMonth(userid,month,year);
+            if (!activitydata.equals(null)) {
+                return ResponseEntity.ok(activitydata);
+
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
+
     @PostMapping("/expenditure/add")
     public ResponseEntity<HttpStatus> addExpenditure(@RequestBody ActivityData activityData) {
         if (activityData.getexpenditureName() != null) {
